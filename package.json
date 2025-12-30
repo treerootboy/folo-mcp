@@ -26,9 +26,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "bunchee",
+    "build": "bunchee && chmod +x dist/bin.js",
     "dev": "bunchee --watch",
-    "inspect": "chmod 755 dist/bin.js && npx @modelcontextprotocol/inspector dist/bin.js",
+    "inspect": "npx @modelcontextprotocol/inspector dist/bin.js",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepare": "simple-git-hooks",
