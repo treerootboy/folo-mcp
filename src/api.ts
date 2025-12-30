@@ -10,8 +10,11 @@ export async function sendApiQuery({
   path: string
   method: string
 }): Promise<CallToolResult> {
+  console.error(`[Folo API] Sending ${method} request to ${path}`, JSON.stringify(args))
+
   const sessionToken = process.env.FOLO_SESSION_TOKEN
   if (!sessionToken) {
+    console.error('[Folo API] Error: Session token not found')
     return {
       content: [
         {
@@ -22,8 +25,11 @@ export async function sendApiQuery({
     }
   }
 
+  const url = `https://api.follow.is${path}${method === 'GET' ? `?${stringifyQuery(args)}` : ''}`
+  console.error(`[Folo API] Fetching: ${url}`)
+
   const res = await fetch(
-    `https://api.follow.is${path}${method === 'GET' ? `?${stringifyQuery(args)}` : ''}`,
+    url,
     {
       method,
       headers: {
@@ -38,10 +44,16 @@ export async function sendApiQuery({
       body: method === 'GET' ? undefined : JSON.stringify(args),
     },
   )
+
+  console.error(`[Folo API] Response status: ${res.status}`)
+
   const json = (await res.json()) as any
   if (json?.code !== 0) {
+    console.error(`[Folo API] API error: ${json.message}`)
     throw new Error(`Error: ${json.message}`)
   }
+
+  console.error('[Folo API] Request completed successfully')
 
   return {
     content: [
