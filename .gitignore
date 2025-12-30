@@ -16,7 +16,6 @@
 .temp
 .vercel
 coverage
-dist
 dist-ssr
 next-env.d.ts
 node_modules
