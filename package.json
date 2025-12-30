@@ -21,7 +21,7 @@
     "Folo"
   ],
   "sideEffects": false,
-  "bin": "./dist/bin.js",
+  "bin": "src/bin/index.ts",
   "files": [
     "dist"
   ],
